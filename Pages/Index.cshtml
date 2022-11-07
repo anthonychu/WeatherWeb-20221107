@@ -4,9 +4,11 @@
 @using System.Text.Json.Serialization
 @inject IHttpClientFactory httpClientFactory
 @inject IConfiguration config
+@inject ILogger<Index> logger
 @{
     ViewData["Title"] = "Weather";
     var httpClient = httpClientFactory.CreateClient();
+    logger.LogInformation($"Calling: {config["WeatherUrl"]}");
     var forecast = await httpClient.GetFromJsonAsync<IEnumerable<WeatherForecast>>(config["WeatherUrl"]);
 }
 
